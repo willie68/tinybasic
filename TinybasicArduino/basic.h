@@ -228,6 +228,8 @@ typedef unsigned char uint8_t;
 #define TSENSOR	-26
 #define TWIRE	-25
 #define TSLEEP	-24
+#define TATTACH  -23
+#define TSERVO -22
 /* constants used for some obscure purposes */
 #define TBUFFER -2
 /* UNKNOWN is not used in the current code, the 
@@ -343,6 +345,10 @@ const char smillis[]	PROGMEM = "MILLIS";
 const char sazero[]	PROGMEM = "AZERO";
 const char sled[]	PROGMEM = "LED";
 #endif
+#ifdef HASSERVO
+const char sattach[]  PROGMEM = "ATTACH";
+const char sservo[] PROGMEM = "SERVO";
+#endif
 #ifdef HASTONE
 const char stone[]    PROGMEM = "PLAY";
 #endif
@@ -443,6 +449,9 @@ const char* const keyword[] PROGMEM = {
 #ifdef HASPULSE
 	splusein,
 #endif
+#ifdef HASSERVO
+  sattach, sservo,
+#endif
 #ifdef HASFILEIO
     scatalog, sdelete, sfopen, sfclose, sfdisk,
 #endif
@@ -498,6 +507,9 @@ const signed char tokens[] PROGMEM = {
 #endif
 #ifdef HASPULSE
 	TPULSEIN, 
+#endif
+#ifdef HASSERVO
+  TATTACH, TSERVO,
 #endif
 #ifdef HASFILEIO
 	TCATALOG, TDELETE, TOPEN, TCLOSE, TFDISK,
@@ -884,6 +896,8 @@ void pinm(number_t, number_t);
 void bmillis();
 void bpulsein();
 void btone(short);
+void wattach(number_t, number_t);
+void wservo(number_t, number_t);
 
 /* timing control for ESP and network */
 void byield();
@@ -1170,6 +1184,8 @@ void xawrite();
 void xpinm();
 void xdelay();
 void xtone();
+void xattach();
+void xservo();
 
 /* graphics commands */
 void xcolor();

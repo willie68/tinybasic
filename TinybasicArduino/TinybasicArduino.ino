@@ -54,6 +54,7 @@
 #define HASFILEIO
 #define HASTONE
 #define HASPULSE
+#define HASSERVO
 #define HASSTEFANSEXT
 #define HASERRORMSG
 #define HASVT52
@@ -5467,6 +5468,25 @@ void xon(){
 }
 #endif
 
+#ifdef HASSERVO
+void xattach() {
+  nexttoken();
+  parsenarguments(2);
+  if (er != 0) return; 
+  x=pop();
+  y=pop();
+  wattach(y, x);
+}
+
+void xservo() {
+  nexttoken();
+  parsenarguments(2);
+  if (er != 0) return; 
+  x=pop();
+  y=pop();
+  wservo(y, x);
+}
+#endif
 /* 
  *	statement processes an entire basic statement until the end 
  *	of the line. 
@@ -5618,6 +5638,14 @@ void statement(){
 			case TTONE:
 				xtone();
 				break;	
+#endif
+#ifdef HASSERVO
+      case TATTACH:
+        xattach();
+        break;  
+      case TSERVO:
+        xservo();
+        break;  
 #endif
 #endif
 /* BASIC DOS function */

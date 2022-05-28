@@ -80,7 +80,7 @@
 #undef ARDUINOMQTT
 #undef ARDUINOSENSORS
 #undef STANDALONE
-
+ 
 /* 
 	Predefined hardware configurations, this assumes that all of the 
 	above are undef
@@ -106,7 +106,7 @@
     ESP01 based board as a sensor / MQTT interface
 */
 
-#undef UNOPLAIN
+#define UNOPLAIN
 #undef AVRLCD
 #undef WEMOSSHIELD
 #undef ESP01BOARD
@@ -395,6 +395,7 @@ const char bsystype = SYSTYPE_UNKNOWN;
  */
 #ifdef ARDUINOEEPROM
 #include <EEPROM.h>
+#include <Servo.h>
 #endif
 
 /* 
@@ -1952,6 +1953,19 @@ void btone(short a) {
 #endif	
 }
 
+Servo servo0, servo1, servo2, servo3;
+
+void wattach(number_t p, number_t m) {
+  if (p==0) {
+    servo0.attach(m);  
+  }
+}
+
+void wservo(number_t p, number_t m) {
+  if (p==0) {
+    servo0.write(m);  
+  }
+}
 /* 
  *	the byield function is called after every statement
  *	it allows two levels of background tasks. 
