@@ -616,7 +616,7 @@ int freeRam() {
   return &top - reinterpret_cast<char*>(sbrk(0));
 }
 #elif defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_MEGAAVR)
-int freeRam() {
+long freeRam() {
   extern int __heap_start,*__brkval;
   int v;
   return (int)&v - (__brkval == 0  
